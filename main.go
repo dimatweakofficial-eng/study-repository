@@ -14,4 +14,5 @@ func main() {
 	feature2.Dog()
 	newanimal.Enot()
 	newanimal2.Vidra("Ахаахахха ну меня то тут не ожидали, я выдра бля")
+	fmt.Println("Все животные опрошены")
 }

@@ -1,7 +1,9 @@
 package newanimal2
 
-import "fmt"
+import (
+	"github.com/fatih/color"
+)
 
 func Vidra(text string) {
-	fmt.Println(text)
+	color.Blue(text)
 }
