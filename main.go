@@ -1,20 +1,31 @@
 package main
 
 import (
-	"demo2/feature1"
-	"demo2/feature2"
-	simplecommection "demo2/feature_postgres/simple_commection"
-	newanimal "demo2/newAnimal"
-	newanimal2 "demo2/newAnimal2"
+	"context"
+	simplecommection "demo2/feature_postgres/simple_connection"
+	simplesql "demo2/feature_postgres/simple_sql"
 	"fmt"
+	"time"
 )
 
 func main() {
-	fmt.Println("Приложение")
-	feature1.Cat()
-	feature2.Dog()
-	newanimal.Enot()
-	newanimal2.Vidra("Ахаахахха ну меня то тут не ожидали, я выдра бля")
-	fmt.Println("Все животные опрошены")
-	simplecommection.ChechConnection()
+	ctx := context.Background()
+	conn, err := simplecommection.CreateConnection(ctx)
+	if err != nil {
+		panic(err)
+	}
+	if err := simplesql.CreateTable(ctx, conn); err != nil {
+		panic(err)
+	}
+	if err := simplesql.InsertRow(ctx, conn, "Повеселиться с крокодилом", "Хочу сильных эмоций бля, дайте мне его", false, time.Now()); err != nil {
+		panic(err)
+	}
+	if err := simplesql.UpdateRow(ctx, conn); err != nil {
+		panic(err)
+	}
+	if err := simplesql.DeleteRow(ctx, conn); err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Succesed!")
 }
