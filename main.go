@@ -3,6 +3,7 @@ package main
 import (
 	"demo2/feature1"
 	"demo2/feature2"
+	simplecommection "demo2/feature_postgres/simple_commection"
 	newanimal "demo2/newAnimal"
 	newanimal2 "demo2/newAnimal2"
 	"fmt"
@@ -15,4 +16,5 @@ func main() {
 	newanimal.Enot()
 	newanimal2.Vidra("Ахаахахха ну меня то тут не ожидали, я выдра бля")
 	fmt.Println("Все животные опрошены")
+	simplecommection.ChechConnection()
 }
