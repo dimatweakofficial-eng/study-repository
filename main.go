@@ -10,22 +10,45 @@ import (
 
 func main() {
 	ctx := context.Background()
+
 	conn, err := simplecommection.CreateConnection(ctx)
 	if err != nil {
 		panic(err)
 	}
+	defer conn.Close(ctx)
+
 	if err := simplesql.CreateTable(ctx, conn); err != nil {
 		panic(err)
 	}
-	if err := simplesql.InsertRow(ctx, conn, "Повеселиться с крокодилом", "Хочу сильных эмоций бля, дайте мне его", false, time.Now()); err != nil {
-		panic(err)
-	}
-	if err := simplesql.UpdateRow(ctx, conn); err != nil {
-		panic(err)
-	}
-	if err := simplesql.DeleteRow(ctx, conn); err != nil {
+
+	err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
+		Title:       "Покормить кота",
+		Description: "Дать вискас",
+		Completed:   false,
+		CreatedAt:   time.Now(),
+	})
+	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Succesed!")
+	tasks, err := simplesql.SelectRow(ctx, conn)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, task := range tasks {
+		if task.Id == 1 {
+			task.Title = "Покормить песика"
+			task.Description = "Отсыпать корма"
+			task.Completed = true
+			now := time.Now()
+			task.CompletedAt = &now
+
+			if err := simplesql.UpdateRow(ctx, conn, task); err != nil {
+				panic(err)
+			}
+			break
+		}
+	}
+	fmt.Println("Succeed!")
 }
