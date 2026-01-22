@@ -29,21 +29,21 @@ func main() {
 	}
 	pp.Println(tasks)
 
-	err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
-		Title:       "Навестить хамстера",
-		Description: "Хомяк ждет надо действовать",
-		Completed:   false,
-		CreatedAt:   time.Now(),
-	})
-	if err != nil {
-		panic(err)
-	}
+	//err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
+	//	Title:       "Навестить хамстера",
+	//	Description: "Хомяк ждет надо действовать",
+	//	Completed:   false,
+	//	CreatedAt:   time.Now(),
+	//})
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	simplesql.DeleteRow(ctx, conn, []int{5})
 
 	for _, task := range tasks {
 		if task.Id == 3 {
-			task.Title = "Выиграть"
+			task.Title = "Выиграть битву"
 			task.Description = "Получить победу и кайф"
 			task.Completed = true
 			now := time.Now()
