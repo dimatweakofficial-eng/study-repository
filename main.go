@@ -6,6 +6,8 @@ import (
 	simplesql "demo2/feature_postgres/simple_sql"
 	"fmt"
 	"time"
+
+	"github.com/k0kubun/pp"
 )
 
 func main() {
@@ -21,25 +23,28 @@ func main() {
 		panic(err)
 	}
 
-	err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
-		Title:       "Покормить кота",
-		Description: "Дать вискас",
-		Completed:   false,
-		CreatedAt:   time.Now(),
-	})
-	if err != nil {
-		panic(err)
-	}
-
 	tasks, err := simplesql.SelectRow(ctx, conn)
 	if err != nil {
 		panic(err)
 	}
+	pp.Println(tasks)
+
+	//err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
+	//	Title:       "Навестить хамстера",
+	//	Description: "Хомяк ждет надо действовать",
+	//	Completed:   false,
+	//	CreatedAt:   time.Now(),
+	//})
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	simplesql.DeleteRow(ctx, conn, []int{5})
 
 	for _, task := range tasks {
-		if task.Id == 1 {
-			task.Title = "Покормить песика"
-			task.Description = "Отсыпать корма"
+		if task.Id == 3 {
+			task.Title = "Выиграть битву"
+			task.Description = "Получить победу и кайф"
 			task.Completed = true
 			now := time.Now()
 			task.CompletedAt = &now
