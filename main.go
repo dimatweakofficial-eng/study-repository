@@ -23,6 +23,12 @@ func main() {
 		panic(err)
 	}
 
+	tasks, err := simplesql.SelectRow(ctx, conn)
+	if err != nil {
+		panic(err)
+	}
+	pp.Println(tasks)
+
 	err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
 		Title:       "Навестить хамстера",
 		Description: "Хомяк ждет надо действовать",
@@ -34,10 +40,6 @@ func main() {
 	}
 
 	simplesql.DeleteRow(ctx, conn, []int{5})
-	tasks, err := simplesql.SelectRow(ctx, conn)
-	if err != nil {
-		panic(err)
-	}
 
 	for _, task := range tasks {
 		if task.Id == 3 {
@@ -53,6 +55,5 @@ func main() {
 			break
 		}
 	}
-	pp.Println(tasks)
 	fmt.Println("Succeed!")
 }
