@@ -1,4 +1,3 @@
-// simplesql/simple_create.go
 package simplesql
 
 import (
