@@ -30,8 +30,8 @@ func main() {
 	pp.Println(tasks)
 
 	//err = simplesql.InsertRow(ctx, conn, simplesql.TaskModel{
-	//	Title:       "Навестить хамстера",
-	//	Description: "Хомяк ждет надо действовать",
+	//	Title:       "Покормить выдру",
+	//	Description: "Выдра голодна, очень хочет есть - так дай же",
 	//	Completed:   false,
 	//	CreatedAt:   time.Now(),
 	//})
